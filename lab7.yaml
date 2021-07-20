@@ -1,0 +1,23 @@
+---
+- hosts: lab
+  tasks:
+    - name: install apache
+      apt:
+        name: apache2
+        state: present
+    - name: update config
+      copy:
+        src: apache.conf
+        dest: /etc/apache2/sites-enabled/000-default.conf
+    - name: update port config
+      copy:
+        src: port.conf
+        dest: /etc/apache2/ports.conf
+    - name: service restart
+      service:
+        name: apache2
+        state: restarted
+    - name: update html file
+      template:
+        src: demo.html
+        dest: /var/www/html/index.html
