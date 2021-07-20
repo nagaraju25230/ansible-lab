@@ -7,7 +7,7 @@
         state: present
     - name: update config
       copy:
-        src: apache.conf
+        src: apache2.conf
         dest: /etc/apache2/sites-enabled/000-default.conf
     - name: update port config
       copy:
