@@ -1,6 +1,6 @@
 ---
-- hosts: lab
+- hosts: all
   tasks:
     - name: calling role
       include_role:
-        name: apache
+        name: multios

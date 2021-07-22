@@ -1,0 +1,13 @@
+---
+- name: Ubuntu Stuff
+  include_tasks: ubuntu.yaml
+  when:
+    ansible_distribution == "Ubuntu"
+- name: Centos Stuff
+  include_tasks: centos.yaml
+  when:
+    ansible_distribution == "CentOS"
+- name: Windows Stuff
+  include_tasks: windows.yaml
+  when:
+    ansible_distribution == "Microsoft Windows Server 2019 Datacenter"

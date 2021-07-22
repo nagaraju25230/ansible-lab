@@ -1,0 +1,5 @@
+---
+- name: copy a file
+  copy:
+    src: centos.txt
+    dest: /home/centos/

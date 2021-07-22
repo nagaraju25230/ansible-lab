@@ -1,0 +1,5 @@
+---
+- name: copy a file
+  copy:
+    src: ubuntu.txt
+    dest: /home/ubuntu/
