@@ -1,0 +1,6 @@
+---
+- name: copying a file
+  copy:
+    src: role-lab.txt
+    dest: "{{ dest }}"
+    owner: "{{ owner }}"
