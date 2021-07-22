@@ -1,0 +1,29 @@
+---
+- hosts: lab
+  vars:
+    port_no: 81
+  tasks:
+    - name: install apache
+      apt:
+        name: apache2
+        update_cache: true
+        state: present
+    - name: update apache2 conf
+      template:
+        src: apache2.conf.j2
+        dest: /etc/apache2/sites-enabled/000-default.conf
+      notify: restart apache2
+    - name: update port config
+      template:
+        src: port.conf.j2
+        dest: /etc/apache2/ports.conf
+      notify: restart apache2
+    - name: update html file
+      template:
+        src: demo.html.j2
+        dest: /var/www/html/index.html
+  handlers:
+    - name: restart apache2
+      service:
+        name: apache2
+        state: restarted
