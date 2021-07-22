@@ -1,0 +1,51 @@
+---
+- hosts: lab
+  vars:
+    port_no: 81
+  tasks:
+    - name: install apache
+      apt:
+        name: apache2
+        update_cache: true
+        state: present
+      tags:
+        - apache
+    - name: update apache2 conf
+      template:
+        src: apache2.conf.j2
+        dest: /etc/apache2/sites-enabled/000-default.conf
+      tags:
+        - apache
+      notify: restart apache2
+    - name: update port config
+      template:
+        src: port.conf.j2
+        dest: /etc/apache2/ports.conf
+      notify: restart apache2
+      tags:
+        - apache
+    - name: create a html file
+      copy:
+        content: "<h1>Hello All, </h1>"
+        dest: /var/www/html/hello.html
+      tags:
+        - newfile
+    - name: update html file
+      copy:
+        src: demo.html.j2
+        dest: /var/www/html/index.html
+      tags:
+        - index
+    - name: execute always
+      shell: date > /tmp/date.txt
+      tags:
+        - always
+    - name: execute shell commands
+      shell: hostname > /tmp/hostname
+      tags:
+        - never
+  handlers:
+    - name: restart apache2
+      service:
+        name: apache2
+        state: restarted
